@@ -1,6 +1,6 @@
 ### 0. 加密云——ABE
 
-这是一个在Go语言编写的网盘项目https://github.com/Aries-hash/filestore-server的基础上结合2017年FAME加密技术实现的加密云，提供加密上传和加密下载功能。
+这是一个在Go语言编写的网盘项目https://github.com/Aries-hash/filestore-server 的基础上结合2017年FAME加密技术实现的加密云，提供加密上传和加密下载功能。
 
 原项目由于使用的相关框架go-micro，consul，traefik等版本更新过大，原代码已经无法使用。本项目已按照其逻辑在go-micro最新v4版本下重新实现并加入加密功能。
 
