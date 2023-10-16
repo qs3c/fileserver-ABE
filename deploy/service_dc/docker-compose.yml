@@ -1,0 +1,98 @@
+version: '2'
+
+services:
+# apigw service
+  apigw:
+    image: hub.fileserver.com/filestore/apigw
+    networks:
+      - web
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    labels:
+      #- "traefik.backend=apigw"
+      #- "traefik.frontend.rule=Host:apigw.fileserver.com"
+      - "traefik.http.routers.apigw.rule=Host(`apigw.fileserver.com`)"
+      #- "traefik.docker.port=8080"
+      - "traefik.http.services.apigw.loadbalancer.server.port=8080"
+      - "traefik.http.routers.apigw.entrypoints=http"
+      #- "traefik.http.routers.apigw.service=apigw_servicedc"
+# upload service
+  upload:
+    image: hub.fileserver.com/filestore/upload
+    networks:
+      - web
+    volumes:
+      - /data/fileserver:/data/fileserver
+      - /data/fileserver_part:/data/fileserver_part
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+    ports:
+      - 28080:28080
+    expose:
+      - 28080
+    labels:
+      - "traefik.http.routers.upload.rule=Host(`upload.fileserver.com`)"
+      - "traefik.http.services.upload.loadbalancer.server.port=28080"
+      - "traefik.http.routers.upload.entrypoints=http"
+# download service
+  download:
+    image: hub.fileserver.com/filestore/download
+    networks:
+      - web
+    volumes:
+      - /data/fileserver:/data/fileserver
+      - /data/fileserver_part:/data/fileserver_part
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+    ports:
+      - 38080:38080
+    expose:
+      - 38080
+    labels:
+      - "traefik.http.routers.download.rule=Host(`download.fileserver.com`)"
+      - "traefik.http.services.download.loadbalancer.server.port=38080"
+      - "traefik.http.routers.download.entrypoints=http"
+# account service
+  account:
+    image: hub.fileserver.com/filestore/account
+    networks:
+      - web
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+# transfer service
+  transfer:
+    image: hub.fileserver.com/filestore/transfer
+    networks:
+      - web
+    volumes:
+      - /data/fileserver:/data/fileserver
+      - /data/fileserver_part:/data/fileserver_part
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+# dbproxy service
+  dbproxy:
+    image: hub.fileserver.com/filestore/dbproxy
+    networks:
+      - web
+    env_file:
+      - ./.env
+    environment:
+      - PARAMS=${registryAddr} ${redisAddr} ${mysqlAddr} ${mqAddr}
+networks:
+  web:
+    external:
+      name: fileserver

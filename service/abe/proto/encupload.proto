@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package go.micro.service.encupload;
+
+option go_package = "./;go_micro_service_encupload";
+
+service EncUploadService {
+    // 获取 ABE(key)
+    rpc AbEncryption(ReqAccessPolicy) returns (RespKey) {}
+}
+
+message ReqAccessPolicy {
+    string access_policy = 1;
+}
+
+message RespKey {
+    string key = 1;
+}

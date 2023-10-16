@@ -1,0 +1,166 @@
+<nil>
+[]
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] POST   /file/upload              --> fileserver_enc/service/upload/api.DoUploadBigDataHandler (4 handlers)
+[GIN-debug] POST   /file/fastupload          --> fileserver_enc/service/upload/api.TryFastUploadHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/init       --> fileserver_enc/service/upload/api.InitialMultipartUploadHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/uppart     --> fileserver_enc/service/upload/api.UploadPartHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/complete   --> fileserver_enc/service/upload/api.CompleteUploadHandler (4 handlers)
+[GIN-debug] POST   /file/encupload           --> fileserver_enc/service/upload/api.EncUploadBigDataHandler (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 0.0.0.0:28080
+2023/10/13 19:53:01 custom mq address: localhost
+2023/10/13 19:53:01 localhost
+2023/10/13 19:53:01 AMQP scheme must be either 'amqp://' or 'amqps://'
+2023/10/13 19:53:01 Dial阶段出问题！
+2023-10-13 19:53:01  file=upload/main.go:47 level=info Starting [service] go.micro.service.upload
+2023-10-13 19:53:01  file=v4@v4.9.0/service.go:96 level=info Transport [http] Listening on [::]:40675
+2023-10-13 19:53:01  file=v4@v4.9.0/service.go:96 level=info Broker [http] Connected to 127.0.0.1:41565
+2023-10-13 19:53:01  file=server/rpc_server.go:832 level=info Registry [consul] Registering node: go.micro.service.upload-727baa9f-9c37-4e27-bfa9-3d9baf2c6167
+2023/10/13 19:53:41 localhost
+2023/10/13 19:53:41 AMQP scheme must be either 'amqp://' or 'amqps://'
+2023/10/13 19:53:41 Dial阶段出问题！
+2023/10/13 19:53:41 初始化channel失败！
+2023/10/13 19:53:41 当前发送转移信息失败，稍后重试
+2023/10/13 19:53:41 localhost
+2023/10/13 19:53:41 AMQP scheme must be either 'amqp://' or 'amqps://'
+2023/10/13 19:53:41 Dial阶段出问题！
+2023/10/13 19:53:41 开始消费...
+
+
+[31m2023/10/13 19:53:41 [Recovery] 2023/10/13 - 19:53:41 panic recovered:
+POST /file/encupload?username=xinyonghu2&token=3fd7a8565c31acf9d89577b95216f56b65292fad&accessPolicy=((ONE%20and%20THREE)%20and%20(TWO%20OR%20FOUR)) HTTP/1.1
+Host: 47.122.61.132:28080
+Accept: */*
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9
+Content-Length: 252
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarylgARm0gAnRb1JESq
+Origin: http://47.122.61.132:8080
+Referer: http://47.122.61.132:8080/
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+
+
+runtime error: invalid memory address or nil pointer dereference
+/usr/local/go/src/runtime/panic.go:261 (0x453db7)
+	panicmem: panic(memoryError)
+/usr/local/go/src/runtime/signal_unix.go:861 (0x453d85)
+	sigpanic: panicmem()
+/root/go/pkg/mod/github.com/streadway/amqp@v1.1.0/channel.go:1078 (0x6fc092)
+	(*Channel).Consume: ch.consumers.add(consumer, deliveries)
+/data/go/work/src/fileserver_enc/mq/consumer.go:9 (0x711aa5)
+	StartConsume: msgs, err := channel.Consume(
+/data/go/work/src/fileserver_enc/service/abe/test/encupload.go:40 (0xb23044)
+	AbEncryption: mq.StartConsume(
+/data/go/work/src/fileserver_enc/service/upload/api/encuploadBigdata.go:123 (0xca2b38)
+	EncUploadBigDataHandler: test.AbEncryption(rpcData)
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xc8f499)
+	(*Context).Next: c.handlers[c.index](c)
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 (0xc8f487)
+	CustomRecoveryWithWriter.func1: c.Next()
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xc8e63d)
+	(*Context).Next: c.handlers[c.index](c)
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 (0xc8e60c)
+	LoggerWithConfig.func1: c.Next()
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xc8d6fa)
+	(*Context).Next: c.handlers[c.index](c)
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 (0xc8d38d)
+	(*Engine).handleHTTPRequest: c.Next()
+/root/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 (0xc8cebc)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+/usr/local/go/src/net/http/server.go:2938 (0x7bb96d)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+/usr/local/go/src/net/http/server.go:2009 (0x7b7793)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+/usr/local/go/src/runtime/asm_amd64.s:1650 (0x472dc0)
+	goexit: BYTE	$0x90	// NOP
+[0m
+[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 200 with 500
+[GIN] 2023/10/13 - 19:53:41 | 200 |  397.154705ms |    120.35.33.13 | POST     "/file/encupload?username=xinyonghu2&token=3fd7a8565c31acf9d89577b95216f56b65292fad&accessPolicy=((ONE%20and%20THREE)%20and%20(TWO%20OR%20FOUR))"
+2023/10/13 20:03:10 localhost
+2023/10/13 20:03:10 AMQP scheme must be either 'amqp://' or 'amqps://'
+2023/10/13 20:03:10 Dial阶段出问题！
+2023/10/13 20:03:10 初始化channel失败！
+2023/10/13 20:03:10 当前发送转移信息失败，稍后重试
+2023/10/13 20:14:39 localhost
+2023/10/13 20:14:39 AMQP scheme must be either 'amqp://' or 'amqps://'
+2023/10/13 20:14:39 Dial阶段出问题！
+2023/10/13 20:14:39 初始化channel失败！
+2023/10/13 20:14:39 当前发送转移信息失败，稍后重试
+<nil>
+[]
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] POST   /file/upload              --> fileserver_enc/service/upload/api.DoUploadBigDataHandler (4 handlers)
+[GIN-debug] POST   /file/fastupload          --> fileserver_enc/service/upload/api.TryFastUploadHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/init       --> fileserver_enc/service/upload/api.InitialMultipartUploadHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/uppart     --> fileserver_enc/service/upload/api.UploadPartHandler (4 handlers)
+[GIN-debug] POST   /file/mpupload/complete   --> fileserver_enc/service/upload/api.CompleteUploadHandler (4 handlers)
+[GIN-debug] POST   /file/encupload           --> fileserver_enc/service/upload/api.EncUploadBigDataHandler (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 0.0.0.0:28080
+2023/10/16 09:55:25 custom mq address: localhost
+2023/10/16 09:55:25 amqp://guest:guest@localhost:5672/
+2023-10-16 09:55:25  file=upload/main.go:47 level=info Starting [service] go.micro.service.upload
+2023-10-16 09:55:25  file=v4@v4.9.0/service.go:96 level=info Transport [http] Listening on [::]:41748
+2023-10-16 09:55:25  file=v4@v4.9.0/service.go:96 level=info Broker [http] Connected to 127.0.0.1:34649
+2023-10-16 09:55:25  file=server/rpc_server.go:832 level=info Registry [consul] Registering node: go.micro.service.upload-95f697e6-dc75-49a3-9bb6-8b2e8c9893e8
+2023/10/16 09:56:35 成功publish等待消费！
+2023/10/16 09:56:36 python执行结果: {[228 186 167 231 148 159 228 186 134 233 154 143 230 156 186 231 190 164 229 133 131 231 180 160 228 189 156 228 184 186 107 101 121 32 91 91 55 56 54 51 50 57 57 55 54 57 51 55 55 48 50 48 49 52 53 57 55 51 56 50 57 48 52 49 51 56 48 51 57 49 51 53 56 49 50 50 54 53 53 51 49 56 49 55 49 54 48 52 48 56 52 49 53 53 49 57 50 51 54 57 56 56 44 32 49 51 49 50 54 56 50 48 50 56 55 48 57 55 54 52 55 51 55 53 55 55 49 57 56 56 57 56 50 53 49 57 49 51 52 54 57 48 56 53 49 53 52 57 52 48 51 57 57 49 54 50 56 50 49 55 53 53 52 53 54 50 50 50 52 51 52 56 44 32 49 50 57 52 49 56 54 55 49 56 53 50 56 57 57 51 57 52 52 49 55 51 54 51 50 55 56 49 56 52 52 48 55 54 51 52 50 48 54 48 50 55 52 52 57 53 57 52 52 50 52 50 49 51 53 57 54 49 51 55 57 55 54 56 51 56 56 53 93 44 32 91 55 50 56 54 53 48 48 48 53 50 52 57 51 56 55 51 49 54 56 48 52 48 57 49 52 49 49 57 50 49 55 52 55 52 50 49 51 49 55 53 55 50 51 51 49 52 56 53 57 51 54 57 57 57 54 54 49 53 49 57 56 51 56 52 51 55 44 32 55 55 51 55 57 52 48 49 53 48 55 57 57 56 54 49 51 52 50 56 54 51 55 55 49 48 53 50 55 49 52 51 53 49 54 55 51 48 57 48 52 55 53 56 54 52 57 52 52 50 50 50 54 49 53 48 49 52 56 50 54 54 54 51 48 50 54 44 32 50 52 57 51 48 57 50 52 52 49 52 56 50 52 56 57 49 50 56 51 55 53 50 51 56 50 57 52 56 52 50 53 51 57 54 51 54 52 48 57 53 56 56 52 52 52 57 57 48 52 57 49 57 48 57 57 49 48 50 57 48 48 49 55 48 57 48 93 93 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 40 40 79 78 69 32 97 110 100 32 84 72 82 69 69 41 32 97 110 100 32 40 84 87 79 32 79 82 32 70 79 85 82 41 41 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 47 100 97 116 97 47 102 105 108 101 115 101 114 118 101 114 47 120 105 110 121 111 110 103 104 117 53 95 123 67 68 52 65 53 56 56 68 45 51 49 67 48 45 69 67 67 68 45 67 57 54 66 45 49 55 56 52 55 57 68 50 53 54 55 65 125 46 106 112 103 10 228 186 167 231 148 159 228 186 134 229 138 160 229 175 134 229 175 185 231 167 176 229 175 134 233 146 165 65 66 69 95 107 101 121 32 60 99 108 97 115 115 32 39 115 116 114 39 62 10] 0 0}
+2023/10/16 09:56:36 开始消费...
+2023/10/16 09:56:36 第一次生成 msgs
+2023/10/16 09:56:36 修改了key
+2023/10/16 09:56:37 此时的key为： [[786329976937702014597382904138039135812265531817160408415519236988, 13126820287097647375771988982519134690851549403991628217554562224348, 12941867185289939441736327818440763420602744959442421359613797683885], [728650005249387316804091411921747421317572331485936999661519838437, 7737940150799861342863771052714351673090475864944222615014826663026, 2493092441482489128375238294842539636409588444990491909910290017090]]
+2023/10/16 09:56:37 这是256b的key [91 91 55 56 54 51 50 57 57 55 54 57 51 55 55 48]
+2023/10/16 09:56:37 下面要开始aes加密了
+
+2023/10/16 09:56:37 {CD4A588D-31C0-ECCD-C96B-178479D2567A}jpg
+[GIN] 2023/10/16 - 09:56:37 | 200 |  1.646771273s |     120.35.33.8 | POST     "/file/encupload?username=xinyonghu5&token=d2a63262bc85a6a704995acd23125b3b652c9841&accessPolicy=((ONE%20and%20THREE)%20and%20(TWO%20OR%20FOUR))"
+2023/10/16 09:56:47 成功publish等待消费！
+2023/10/16 09:56:47 python执行结果: {[228 186 167 231 148 159 228 186 134 233 154 143 230 156 186 231 190 164 229 133 131 231 180 160 228 189 156 228 184 186 107 101 121 32 91 91 50 51 57 57 54 49 50 55 57 55 54 48 52 53 56 54 53 53 52 56 51 50 52 50 50 55 57 53 50 56 50 53 53 51 53 55 51 56 57 56 53 54 56 54 51 50 52 53 48 49 54 57 48 54 50 51 54 52 52 53 57 52 54 55 51 53 54 44 32 49 51 53 49 49 48 56 51 51 57 54 56 55 52 48 54 56 52 56 53 57 57 50 56 53 51 53 56 56 48 50 52 50 55 56 54 49 55 55 55 54 48 48 54 55 55 57 48 53 49 50 53 51 48 56 54 53 48 50 55 52 53 51 51 48 51 57 52 44 32 53 53 50 49 48 52 54 51 48 49 50 52 53 48 49 51 56 57 55 55 55 51 51 48 56 54 49 53 53 55 48 56 55 53 48 49 54 50 49 52 54 50 53 51 49 53 56 49 50 56 54 52 54 56 53 55 51 56 55 57 52 50 55 57 50 48 53 93 44 32 91 57 49 50 55 51 56 54 54 54 49 56 52 52 55 49 49 55 49 52 56 49 57 56 55 51 55 56 51 54 49 54 53 53 52 54 52 50 56 53 53 48 57 50 56 55 48 49 56 48 54 49 52 49 50 57 57 56 52 49 56 56 57 55 54 49 56 50 44 32 50 54 49 53 53 54 54 50 50 52 49 52 53 57 52 53 57 54 51 56 49 48 48 49 49 48 56 57 53 54 48 51 48 54 51 49 56 57 49 56 50 54 50 49 50 54 50 48 50 56 50 55 57 48 51 57 54 50 53 50 55 55 56 49 50 49 54 44 32 49 49 53 54 50 55 56 48 49 55 54 49 48 51 48 56 53 52 51 48 53 55 52 54 57 54 53 55 48 57 56 50 56 50 53 52 50 55 49 55 55 49 53 48 57 54 48 53 53 55 48 56 52 57 55 52 51 57 49 56 51 50 56 48 57 50 54 48 93 93 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 40 40 79 78 69 32 97 110 100 32 84 72 82 69 69 41 32 97 110 100 32 40 84 87 79 32 79 82 32 70 79 85 82 41 41 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 47 100 97 116 97 47 102 105 108 101 115 101 114 118 101 114 47 120 105 110 121 111 110 103 104 117 53 95 64 72 41 79 81 85 93 76 36 52 56 66 52 88 81 71 125 75 49 77 123 125 88 46 112 110 103 10 228 186 167 231 148 159 228 186 134 229 138 160 229 175 134 229 175 185 231 167 176 229 175 134 233 146 165 65 66 69 95 107 101 121 32 60 99 108 97 115 115 32 39 115 116 114 39 62 10] 0 0}
+2023/10/16 09:56:47 开始消费...
+2023/10/16 09:56:47 非第一次沿用以前的msgs 0xc0004b2d80
+2023/10/16 09:56:47 什么都不需要做捏！
+2023/10/16 09:56:47 修改了key
+2023/10/16 09:56:48 此时的key为： [[2399612797604586554832422795282553573898568632450169062364459467356, 13511083396874068485992853588024278617776006779051253086502745330394, 5521046301245013897773308615570875016214625315812864685738794279205], [9127386661844711714819873783616554642855092870180614129984188976182, 2615566224145945963810011089560306318918262126202827903962527781216, 11562780176103085430574696570982825427177150960557084974391832809260]]
+2023/10/16 09:56:48 这是256b的key [91 91 50 51 57 57 54 49 50 55 57 55 54 48 52 53]
+2023/10/16 09:56:48 下面要开始aes加密了
+
+2023/10/16 09:56:48 @H)OQU]L$48B4XQG}K1M{}Xpng
+[GIN] 2023/10/16 - 09:56:48 | 200 |  1.456668979s |     120.35.33.8 | POST     "/file/encupload?username=xinyonghu5&token=d2a63262bc85a6a704995acd23125b3b652c9841&accessPolicy=((ONE%20and%20THREE)%20and%20(TWO%20OR%20FOUR))"
+2023/10/16 09:57:07 成功publish等待消费！
+2023/10/16 09:57:08 python执行结果: {[228 186 167 231 148 159 228 186 134 233 154 143 230 156 186 231 190 164 229 133 131 231 180 160 228 189 156 228 184 186 107 101 121 32 91 91 53 57 49 57 52 49 49 54 50 48 55 55 55 57 54 53 54 56 49 54 51 49 52 56 51 50 55 52 57 48 50 49 56 52 48 53 56 55 54 52 52 51 57 48 49 55 57 57 54 54 54 49 52 54 57 54 53 51 48 49 51 57 53 53 52 51 49 44 32 56 53 51 55 50 51 48 51 55 57 50 55 56 56 49 50 55 52 55 53 48 51 50 52 56 48 52 50 55 48 50 56 57 51 56 51 54 55 53 57 55 57 55 48 52 54 51 55 55 51 51 48 54 53 48 54 50 56 54 56 55 50 57 48 53 57 49 44 32 49 48 57 51 57 55 50 52 53 53 51 48 52 49 51 49 51 49 49 53 48 48 52 57 50 55 52 48 54 49 48 51 55 48 49 57 57 49 53 56 54 54 53 51 51 49 53 56 51 57 52 50 53 49 48 53 51 54 49 53 57 48 49 55 49 56 57 54 93 44 32 91 49 51 52 49 56 55 48 53 51 53 52 49 52 48 55 50 51 56 50 50 57 50 49 56 53 50 56 49 57 48 57 52 52 55 52 55 54 50 49 48 51 55 49 50 55 55 57 54 54 50 52 50 56 57 52 50 57 49 56 54 50 54 48 55 48 55 57 57 44 32 49 48 57 54 54 57 54 56 50 54 49 54 51 51 51 57 54 54 55 51 53 55 52 48 51 49 52 57 50 51 51 56 55 48 55 53 50 50 50 53 49 54 52 52 54 55 51 50 49 52 56 55 57 56 53 50 56 55 56 56 55 55 52 48 49 56 56 49 44 32 55 49 57 56 49 57 55 56 57 52 50 51 54 49 51 52 53 53 53 49 52 54 48 54 53 57 49 53 55 56 51 49 49 48 52 53 53 57 54 56 51 50 56 52 50 53 54 57 49 51 55 53 56 49 57 54 52 54 55 57 51 53 56 52 52 56 53 93 93 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 40 40 79 78 69 32 97 110 100 32 84 72 82 69 69 41 32 97 110 100 32 40 84 87 79 32 79 82 32 70 79 85 82 41 41 10 103 101 116 32 112 111 108 105 99 121 95 115 116 114 58 32 47 100 97 116 97 47 102 105 108 101 115 101 114 118 101 114 47 120 105 110 121 111 110 103 104 117 53 95 64 90 84 55 125 37 81 96 73 49 88 88 50 49 80 73 78 49 67 80 74 56 57 46 103 105 102 10 228 186 167 231 148 159 228 186 134 229 138 160 229 175 134 229 175 185 231 167 176 229 175 134 233 146 165 65 66 69 95 107 101 121 32 60 99 108 97 115 115 32 39 115 116 114 39 62 10] 0 0}
+2023/10/16 09:57:08 开始消费...
+2023/10/16 09:57:08 非第一次沿用以前的msgs 0xc0004b2d80
+2023/10/16 09:57:08 什么都不需要做捏！
+2023/10/16 09:57:08 修改了key
+2023/10/16 09:57:09 此时的key为： [[5919411620777965681631483274902184058764439017996661469653013955431, 8537230379278812747503248042702893836759797046377330650628687290591, 10939724553041313115004927406103701991586653315839425105361590171896], [13418705354140723822921852819094474762103712779662428942918626070799, 10966968261633396673574031492338707522251644673214879852878877401881, 7198197894236134555146065915783110455968328425691375819646793584485]]
+2023/10/16 09:57:09 这是256b的key [91 91 53 57 49 57 52 49 49 54 50 48 55 55 55 57]
+2023/10/16 09:57:09 下面要开始aes加密了
+
+
+
+
+
+
+
+
+
+
+2023/10/16 09:57:09 @ZT7}%Q`I1XX21PIN1CPJ89gif
+[GIN] 2023/10/16 - 09:57:09 | 200 |  1.346594976s |     120.35.33.8 | POST     "/file/encupload?username=xinyonghu5&token=d2a63262bc85a6a704995acd23125b3b652c9841&accessPolicy=((ONE%20and%20THREE)%20and%20(TWO%20OR%20FOUR))"
