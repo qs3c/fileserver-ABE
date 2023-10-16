@@ -58,7 +58,7 @@
 
 ### 3. 加密功能介绍
 
-FAME是2017年在CCS会议上提出的一种高效的属性加密技术：https://github.com/sagrawal87/ABE，其原作者基于Python的charm-crypto库实现。
+FAME是2017年在CCS会议上提出的一种高效的属性加密技术：https://github.com/sagrawal87/ABE ，其原作者基于Python的charm-crypto库实现。
 
 1. 这里我们通过Go执行python脚本aes_key_gen.py，这个脚本会生成随机密钥Key，并把Key通过Rabbitmq发送给Go，并从Rabbitmq获取Go发送的“访问结构”和“指定路径”，它根据访问结构对密钥Key进行加密，然后把FAME加密的Key写入指定路径。
 2. Go从Rabbitmq获取python脚本随机产生的Key，并使用这个Key对文件进行aes对称加密，将加密后的文件写入指定路径。
